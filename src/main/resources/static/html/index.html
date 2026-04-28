@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm's Pure — Fresh from the Farm</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body { background: var(--black); }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 100px 60px 80px; position: relative; z-index: 1;
+    }
+    .hero-tag {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 900; line-height: 1.05;
+      color: var(--white); margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); display: block; }
+    .hero-desc {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.45);
+      max-width: 400px; margin-bottom: 44px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 60px; }
+    .btn-hero-main {
+      padding: 15px 36px; background: var(--gold); color: var(--black);
+      border: none; font-family: var(--font-body);
+      font-size: 0.88rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; border-radius: var(--radius-sm); transition: var(--transition);
+    }
+    .btn-hero-main:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-hero-sec {
+      padding: 15px 36px; background: transparent;
+      border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.75);
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; border-radius: var(--radius-sm); transition: var(--transition);
+    }
+    .btn-hero-sec:hover { border-color: var(--white); color: var(--white); }
+    .hero-stats {
+      display: flex; gap: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 900; color: var(--white); line-height: 1;
+    }
+    .stat-lbl { font-size: 0.7rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--light-grey); margin-top: 5px; }
+
+    /* Hero Right — product image grid */
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: var(--dark-grey);
+    }
+    .hero-img-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr; height: 100%;
+    }
+    .hero-img-cell {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .hero-img-cell img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(20%) brightness(0.75);
+      transition: transform 0.5s var(--ease), filter 0.5s;
+    }
+    .hero-img-cell:hover img { transform: scale(1.06); filter: grayscale(0%) brightness(0.9); }
+    .hero-img-cell .cell-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 20px 16px 14px;
+    }
+    .cell-name {
+      font-family: var(--font-display);
+      color: var(--white); font-size: 1rem; font-weight: 700;
+    }
+    .cell-sub { color: var(--gold); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* ── MARQUEE ──────────────────────────────────────────── */
+    .marquee-strip { background: var(--gold); padding: 13px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-flex; animation: marquee 22s linear infinite; }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--black); padding: 0 28px;
+    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── FEATURES ─────────────────────────────────────────── */
+    .features { padding: 100px 48px; background: var(--cream); }
+    .sec-tag {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .sec-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .sec-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 900; color: var(--black);
+      line-height: 1.1; margin-bottom: 56px;
+    }
+    .sec-title em { font-style: italic; color: var(--light-grey); }
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: #D0CEC9; border: 1px solid #D0CEC9;
+      max-width: 1200px;
+    }
+    .feat-card {
+      background: var(--cream); padding: 44px 32px;
+      position: relative; transition: background 0.3s;
+    }
+    .feat-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s var(--ease);
+    }
+    .feat-card:hover { background: var(--white); }
+    .feat-card:hover::after { transform: scaleX(1); }
+    .feat-num {
+      font-family: var(--font-display);
+      font-size: 4rem; font-weight: 900;
+      color: rgba(0,0,0,0.05); line-height: 1; margin-bottom: 20px;
+    }
+    .feat-icon { font-size: 1.8rem; margin-bottom: 16px; display: block; }
+    .feat-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--black); margin-bottom: 10px;
+    }
+    .feat-card p { font-size: 0.85rem; color: var(--light-grey); line-height: 1.7; }
+
+    /* ── CATEGORIES ───────────────────────────────────────── */
+    .categories { padding: 100px 48px; background: var(--off-black); }
+    .categories .sec-tag { color: var(--gold); }
+    .categories .sec-tag::before { background: var(--gold); }
+    .categories .sec-title { color: var(--white); }
+    .categories .sec-title em { color: rgba(255,255,255,0.25); }
+
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px; max-width: 1200px;
+    }
+    .cat-card {
+      background: var(--dark-grey);
+      border: 1px solid var(--border-dark);
+      overflow: hidden; cursor: pointer;
+      transition: var(--transition); position: relative;
+    }
+    .cat-img-wrap {
+      height: 180px; overflow: hidden; position: relative;
+    }
+    .cat-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(30%) brightness(0.6);
+      transition: transform 0.5s var(--ease), filter 0.4s;
+    }
+    .cat-card:hover .cat-img-wrap img {
+      transform: scale(1.08);
+      filter: grayscale(0%) brightness(0.75);
+    }
+    .cat-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(transparent 40%, rgba(0,0,0,0.5));
+    }
+    .cat-info { padding: 18px 16px; }
+    .cat-title {
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700; color: var(--white);
+      margin-bottom: 4px; transition: color 0.3s;
+    }
+    .cat-sub {
+      font-size: 0.7rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--light-grey);
+      transition: color 0.3s;
+    }
+    .cat-card:hover .cat-title { color: var(--gold); }
+    .cat-card:hover .cat-sub { color: var(--gold-dark); }
+
+    /* ── CTA BANNER ───────────────────────────────────────── */
+    .cta-banner {
+      background: var(--black); padding: 90px 48px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: 'PURE';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 20vw; font-weight: 900;
+      color: rgba(255,255,255,0.02);
+      pointer-events: none; white-space: nowrap;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900; color: var(--white);
+      margin-bottom: 14px; position: relative; z-index: 1;
+    }
+    .cta-banner h2 em { font-style: italic; color: var(--gold-light); }
+    .cta-banner p {
+      color: rgba(255,255,255,0.4); font-size: 1rem;
+      margin-bottom: 40px; position: relative; z-index: 1;
+    }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; position: relative; z-index: 1; }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      background: var(--off-black);
+      border-top: 1px solid var(--border-dark);
+      padding: 32px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 700; color: var(--white);
+    }
+    .footer-copy { font-size: 0.78rem; color: var(--light-grey); }
+    .footer-tech { font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 120px 28px 80px; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .cats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .features, .categories, .cta-banner { padding: 60px 20px; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .cats-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-brand"><span class="brand-dot"></span> Farm's Pure</div>
+  <div class="navbar-nav">
+    <button class="nav-btn" onclick="location.href='/html/login.html'">Login</button>
+    <button class="btn-nav-cta" onclick="location.href='/html/register.html'">Register Free</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Premium Dairy · Est. 2025</div>
+    <h1>Fresh Dairy <em>Delivered Pure</em></h1>
+    <p class="hero-desc">
+      Premium milk, butter, ghee, paneer and more — sourced directly from certified farms. Zero preservatives. Delivered fresh, every day.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-hero-main" onclick="location.href='/html/register.html'">Shop Now →</button>
+      <button class="btn-hero-sec" onclick="location.href='/html/login.html'">Sign In</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">10+</div><div class="stat-lbl">Products</div></div>
+      <div><div class="stat-num">COD</div><div class="stat-lbl">Pay on Delivery</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-lbl">Pure & Fresh</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <div class="hero-img-cell">
+        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500" alt="Fresh Milk">
+        <div class="cell-info"><div class="cell-name">Fresh Milk</div><div class="cell-sub">Farm Direct</div></div>
+      </div>
+      <div class="hero-img-cell">
+        <img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=400&h=400&fit=crop" alt="Pure Butter">
+        <div class="cell-info"><div class="cell-name">Pure Butter</div><div class="cell-sub">Churned Fresh</div></div>
+      </div>
+      <div class="hero-img-cell">
+        <img src="https://png.pngtree.com/png-clipart/20240907/original/pngtree-paneer-cheese-cubes-on-a-plate-transparent-background-png-image_15958435.png" alt="Fresh Paneer">
+        <div class="cell-info"><div class="cell-name">Fresh Paneer</div><div class="cell-sub">Made Daily</div></div>
+      </div>
+      <div class="hero-img-cell">
+        <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&h=400&fit=crop" alt="Premium Cheese">
+        <div class="cell-info"><div class="cell-name">Premium Cheese</div><div class="cell-sub">Aged & Fresh</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">🥛 Fresh Milk ·</span>
+    <span class="marquee-item">🧈 Pure Butter ·</span>
+    <span class="marquee-item">🍯 Desi Ghee ·</span>
+    <span class="marquee-item">🧀 Fresh Paneer ·</span>
+    <span class="marquee-item">🍦 Yoghurt ·</span>
+    <span class="marquee-item">🧀 Cheese ·</span>
+    <span class="marquee-item">🍨 Ice Cream ·</span>
+    <span class="marquee-item">💳 COD Available ·</span>
+    <span class="marquee-item">🥛 Fresh Milk ·</span>
+    <span class="marquee-item">🧈 Pure Butter ·</span>
+    <span class="marquee-item">🍯 Desi Ghee ·</span>
+    <span class="marquee-item">🧀 Fresh Paneer ·</span>
+    <span class="marquee-item">🍦 Yoghurt ·</span>
+    <span class="marquee-item">🧀 Cheese ·</span>
+    <span class="marquee-item">🍨 Ice Cream ·</span>
+    <span class="marquee-item">💳 COD Available ·</span>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="features">
+  <div class="sec-tag">Why choose us</div>
+  <div class="sec-title">Our <em>Promise</em> to You</div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-num">01</div>
+      <span class="feat-icon">🌿</span>
+      <h3>100% Fresh & Pure</h3>
+      <p>All products sourced directly from certified farms with zero preservatives, guaranteed.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">02</div>
+      <span class="feat-icon">🚚</span>
+      <h3>Same-Day Delivery</h3>
+      <p>Order before noon and get your fresh dairy delivered to your doorstep the same day.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">03</div>
+      <span class="feat-icon">💰</span>
+      <h3>Farm-Direct Prices</h3>
+      <p>Direct sourcing cuts the middleman. We pass every rupee of savings on to you.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">04</div>
+      <span class="feat-icon">🔒</span>
+      <h3>OTP-Secured COD</h3>
+      <p>Every order gets a unique OTP. Pay only on delivery — zero advance payment required.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="categories">
+  <div class="sec-tag">Our Collection</div>
+  <div class="sec-title">Browse by <em>Category</em></div>
+  <div class="cats-grid">
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500" alt="Milk">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Milk</div><div class="cat-sub">Full Cream · Skimmed</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=400&h=300&fit=crop" alt="Butter">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Butter</div><div class="cat-sub">Salted · Unsalted</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://commons.wikimedia.org/w/thumb.php?f=Desi_ghee.JPG&w=500" alt="Ghee">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Ghee</div><div class="cat-sub">Cow · Desi</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://png.pngtree.com/png-clipart/20240907/original/pngtree-paneer-cheese-cubes-on-a-plate-transparent-background-png-image_15958435.png" alt="Paneer">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Paneer</div><div class="cat-sub">Fresh · Malai</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop" alt="Yoghurt">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Yoghurt</div><div class="cat-sub">Greek · Flavoured</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&h=300&fit=crop" alt="Cheese">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Cheese</div><div class="cat-sub">Cheddar · Mozzarella</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&h=300&fit=crop" alt="Ice Cream">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Ice Cream</div><div class="cat-sub">Vanilla · Chocolate</div></div>
+    </div>
+    <div class="cat-card" onclick="location.href='/html/register.html'">
+      <div class="cat-img-wrap">
+        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=400&h=300&fit=crop" alt="Cream">
+        <div class="cat-img-overlay"></div>
+      </div>
+      <div class="cat-info"><div class="cat-title">Fresh Cream</div><div class="cat-sub">Whipping · Light</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+  <h2>Ready to taste <em>real freshness?</em></h2>
+  <p>Join thousands of happy customers. Register free in 30 seconds.</p>
+  <div class="cta-btns">
+    <button class="btn-hero-main" onclick="location.href='/html/register.html'">Create Free Account</button>
+    <button class="btn-hero-sec" onclick="location.href='/html/login.html'">Already Registered</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-brand">🥛 Farm's Pure</div>
+  <div class="footer-copy">&copy; 2025 Farm's Pure — All rights reserved.</div>
+  <div class="footer-tech">Spring Boot · MySQL · HTML/CSS/JS</div>
+</footer>
+
+<script>
+  // If already logged in, redirect
+  var role = localStorage.getItem('userRole');
+  if (role === 'ADMIN') { location.href = '/html/admin-dashboard.html'; }
+  else if (role === 'USER') { location.href = '/html/user_dashboard.html'; }
+</script>
+</body>
+</html>

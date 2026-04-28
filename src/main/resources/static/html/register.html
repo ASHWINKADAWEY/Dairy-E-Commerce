@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Dairy Delight</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #FFD700;
+    --black: #0f0f0f;
+    --dark: #1a1a1a;
+    --white: #ffffff;
+    --gray: #aaa;
+    --border: rgba(255,255,255,0.15);
+    --text-muted: #bbb;
+    --primary: #D4AF37;
+  }
+
+  /* Background */
+  body {
+    background: linear-gradient(135deg,#000 0%,#1a1a1a 50%,#2b2b2b 100%);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Wrapper */
+  .reg-wrap {
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 16px;
+  }
+
+  /* Card */
+  .reg-box {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    width:100%;
+    max-width:460px;
+    border:1px solid rgba(255,255,255,0.1);
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+    overflow:hidden;
+  }
+
+  /* Top */
+  .reg-top {
+    background: linear-gradient(135deg,#000,#1c1c1c);
+    padding:30px 32px 22px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+  }
+
+  .reg-top .logo {
+    font-size:2.6rem;
+    display:block;
+    margin-bottom:8px;
+  }
+
+  .reg-top h1 {
+    color:#fff;
+    font-size:1.5rem;
+    font-weight:800;
+  }
+
+  .reg-top p {
+    color:rgba(255,255,255,0.6);
+    font-size:0.88rem;
+    margin-top:4px;
+  }
+
+  /* Body */
+  .reg-body {
+    padding:28px 32px;
+  }
+
+  /* Messages */
+  .error-msg {
+    background: rgba(255,0,0,0.1);
+    border:1px solid rgba(255,0,0,0.3);
+    color:#ff6b6b;
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:0.88rem;
+    margin-bottom:16px;
+    display:none;
+  }
+
+  .success-msg {
+    background: rgba(0,255,100,0.1);
+    border:1px solid rgba(0,255,100,0.3);
+    color:#4caf50;
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:0.88rem;
+    margin-bottom:16px;
+    display:none;
+  }
+
+  /* Inputs */
+  .input-icon {
+    position:relative;
+  }
+
+  .input-icon .form-control {
+    width:100%;
+    padding:12px 14px 12px 42px;
+    background: transparent;
+    border:1px solid #333;
+    border-radius:10px;
+    color:#fff;
+    outline:none;
+    transition:0.3s;
+  }
+
+  .input-icon .form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 8px rgba(212,175,55,0.4);
+  }
+
+  /* Autofill fix */
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #111 inset;
+    -webkit-text-fill-color: #fff;
+  }
+
+  /* Icons */
+  .input-icon .icon {
+    position:absolute;
+    left:13px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:1.1rem;
+    pointer-events:none;
+    color: var(--gold);
+  }
+
+  /* Button */
+  .btn-reg {
+    width:100%;
+    padding:13px;
+    font-size:1rem;
+    border-radius:10px;
+    border:none;
+    background: linear-gradient(135deg,#C9A227,#FFD700);
+    color:#000;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+  }
+
+  .btn-reg:hover {
+    transform: translateY(-2px);
+    box-shadow:0 10px 20px rgba(212,175,55,0.3);
+  }
+
+  /* Login link */
+  .login-link {
+    text-align:center;
+    font-size:0.9rem;
+    margin-top:20px;
+    color:var(--text-muted);
+  }
+
+  .login-link a {
+    color:var(--gold);
+    font-weight:600;
+  }
+
+  /* Hint text */
+  .hint {
+    font-size:0.78rem;
+    color:var(--text-muted);
+    margin-top:3px;
+  }
+
+  /* Footer */
+  footer {
+    background:rgba(0,0,0,0.5);
+    text-align:center;
+    padding:14px;
+    color:rgba(255,255,255,0.5);
+    font-size:0.8rem;
+  }
+  </style>
+</head>
+<body>
+<div class="reg-wrap">
+  <div class="reg-box">
+    <div class="reg-top">
+      <span class="logo">🥛</span>
+      <h1>Create Your Account</h1>
+      <p>Join Dairy Delight and order fresh dairy today</p>
+    </div>
+    <div class="reg-body">
+      <div class="error-msg"   id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <div class="input-icon">
+          <span class="icon">👤</span>
+          <input type="text" id="fullName" class="form-control" placeholder="e.g. Rahul Sharma" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-icon">
+          <span class="icon">📧</span>
+          <input type="email" id="email" class="form-control" placeholder="you@example.com" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="input-icon">
+          <span class="icon">📱</span>
+          <input type="tel" id="phone" class="form-control" placeholder="10-digit mobile number" maxlength="10" autocomplete="off">
+        </div>
+        <span class="hint">Enter 10 digits without spaces or dashes.</span>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-icon">
+          <span class="icon">🔒</span>
+          <input type="password" id="password" class="form-control" placeholder="Minimum 6 characters" autocomplete="new-password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <div class="input-icon">
+          <span class="icon">🔑</span>
+          <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter your password" autocomplete="new-password">
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-reg" id="regBtn" onclick="doRegister()">
+        Create Account 🎉
+      </button>
+
+      <div class="login-link">
+        Already have an account? <a href="/login.html">Login here</a>
+      </div>
+      <div class="login-link mt-1">
+		<a href="index.html">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>🥛 Farm's Pure &copy; 2025</footer>
+
+<script>
+  const role = localStorage.getItem('userRole');
+  if (role === 'ADMIN') location.href = '/admin-dashboard.html';
+  else if (role === 'USER') location.href = '/user-dashboard.html';
+
+  // Clear all fields on page load
+  window.addEventListener('load', function() {
+    document.getElementById('fullName').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirmPassword').value = '';
+  });
+
+  async function doRegister() {
+    const fullName       = document.getElementById('fullName').value.trim();
+    const email          = document.getElementById('email').value.trim();
+    const phone          = document.getElementById('phone').value.trim();
+    const password       = document.getElementById('password').value.trim();
+    const confirmPassword= document.getElementById('confirmPassword').value.trim();
+
+    hideMessages();
+    if (!fullName || !email || !phone || !password || !confirmPassword) {
+      showErr('All fields are required.'); return;
+    }
+    if (!/^[0-9]{10}$/.test(phone)) {
+      showErr('Phone must be exactly 10 digits.'); return;
+    }
+    if (password.length < 6) {
+      showErr('Password must be at least 6 characters.'); return;
+    }
+    if (password !== confirmPassword) {
+      showErr('Passwords do not match.'); return;
+    }
+
+    const btn = document.getElementById('regBtn');
+    btn.disabled = true; btn.textContent = 'Creating account…';
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        credentials: 'include',
+        body: JSON.stringify({ fullName, email, phone, password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showSuccess('🎉 Account created successfully! Redirecting to login…');
+        setTimeout(() => location.href = '/login.html', 2000);
+      } else {
+        showErr(data.message || 'Registration failed. Please try again.');
+      }
+    } catch(e) {
+      showErr('Server error. Please make sure the application is running.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Create Account 🎉';
+    }
+  }
+
+  function showErr(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = '⚠ ' + msg; el.style.display = 'block';
+  }
+  function showSuccess(msg) {
+    const el = document.getElementById('successMsg');
+    el.textContent = msg; el.style.display = 'block';
+  }
+  function hideMessages() {
+    document.getElementById('errorMsg').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'none';
+  }
+</script>
+</body>
+</html>
