@@ -22,8 +22,6 @@ public class AuthService {
             throw new RuntimeException("Phone number is already registered");
         }
 
-        // NOTE: In production, use BCrypt to hash passwords.
-        // For this fresher-level project, plain text is used.
         User user = User.builder()
                 .fullName(request.getFullName())
                 .email(request.getEmail())
